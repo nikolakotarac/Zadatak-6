@@ -11,6 +11,9 @@ const bookmark = document.querySelector('.bookmark');
 const bookmarkBtn = document.querySelector('.bookmark-btn');
 const inputFields = document.querySelectorAll('.input-field');
 const optionBtn = document.querySelectorAll('.option-btn');
+const currentMoneyDisplay = document.querySelector('.money');
+const currentBackersDisplay = document.querySelector('.backers');
+const line = document.querySelector('.line-1');
 
 
 const mobileMenu = document.querySelector('.mobile-menu')
@@ -61,7 +64,7 @@ modal.addEventListener('click', function(e){
 })
 selectBtn.forEach((button, index)=> {
     button.addEventListener('click',function(){
-        if (button.parent.parent.classList.contains('not-available')){
+        if (button.parentElement.parentElement.classList.contains('not-available')){
             return
         } else {
             modal.classList.add('modal-active');
@@ -104,15 +107,18 @@ optionBtn.forEach((button, index)=>{
     button.addEventListener('click',function() {
         let minValue = inputFields[index].getAttribute('min');
         let currentValue = inputFields[index].value;
-        const parent = document.querySelectorAll('.card-option');
-        if (currentValue < minValue){
-            parent[index].classList.add('card-option-error');
+        const parentElement = document.querySelectorAll('.card-option');
+        
+        if (currentValue < minValue || isNaN(currentValue) ){
+            parentElement[index].classList.add('card-option-error');
             const errorMsg = document.querySelectorAll('.error-msg');
-            errorMsg[index].innerText = `Minimum value for this plan is ${minValue}$`
+            errorMsg[index].innerText = `Minimum value for this plan is ${minValue}$`;
+           
         }else {
-            parent[index].classList.remove('card-option-error');
+            parentElement[index].classList.remove('card-option-error');
             modalContent.style.display = "none";
             thanksModal.style.display = 'block';
+            NumbersChange(currentValue);
             
         }
     })
@@ -133,3 +139,15 @@ mobileClose.addEventListener('click', function(){
         mobileMenu.style.display = "none";                                    
     }
  })
+ let currentMoney = 89914;
+let currentBackers = 5007;
+
+currentMoneyDisplay.innerText = `$${currentMoney.toLocaleString('en-US')}`;
+currentBackersDisplay.innerText = currentBackers.toLocaleString('en-US');
+
+const NumbersChange = function(value){
+    currentMoney = currentMoney - value;
+    currentBackers ++;
+    currentMoneyDisplay.innerText = `$${currentMoney.toLocaleString('en-US')}`;
+    currentBackersDisplay.innerText = currentBackers.toLocaleString('en-US');
+}
