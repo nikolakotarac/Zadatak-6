@@ -105,8 +105,8 @@ const openModal = (index) => {
 
 optionBtn.forEach((button, index)=>{
     button.addEventListener('click',function() {
-        let minValue = inputFields[index].getAttribute('min');
-        let currentValue = inputFields[index].value;
+        let minValue = parseInt(inputFields[index].getAttribute('min'));
+        let currentValue = parseInt(inputFields[index].value);
         const parentElement = document.querySelectorAll('.card-option');
         
         if (currentValue < minValue || isNaN(currentValue) ){
