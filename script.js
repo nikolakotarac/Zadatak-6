@@ -13,7 +13,9 @@ const inputFields = document.querySelectorAll('.input-field');
 const optionBtn = document.querySelectorAll('.option-btn');
 const currentMoneyDisplay = document.querySelector('.money');
 const currentBackersDisplay = document.querySelector('.backers');
-const line = document.querySelector('.line-1');
+const line = document.querySelector('.line-2');
+line.style.width = `${parseInt(currentMoneyDisplay.innerText.split('$')[1].split(',')[0])}px`;
+
 
 
 const mobileMenu = document.querySelector('.mobile-menu')
@@ -113,13 +115,13 @@ optionBtn.forEach((button, index)=>{
             parentElement[index].classList.add('card-option-error');
             const errorMsg = document.querySelectorAll('.error-msg');
             errorMsg[index].innerText = `Minimum value for this plan is ${minValue}$`;
-           
+            line.style.width = '100%';
         }else {
             parentElement[index].classList.remove('card-option-error');
             modalContent.style.display = "none";
             thanksModal.style.display = 'block';
             NumbersChange(currentValue);
-            
+            line.style.width = `${parseInt(currentMoneyDisplay.innerText.split('$')[1].split(',')[0])}px`;
         }
     })
 })
@@ -146,7 +148,7 @@ currentMoneyDisplay.innerText = `$${currentMoney.toLocaleString('en-US')}`;
 currentBackersDisplay.innerText = currentBackers.toLocaleString('en-US');
 
 const NumbersChange = function(value){
-    currentMoney = currentMoney - value;
+    currentMoney = currentMoney + value;
     currentBackers ++;
     currentMoneyDisplay.innerText = `$${currentMoney.toLocaleString('en-US')}`;
     currentBackersDisplay.innerText = currentBackers.toLocaleString('en-US');
